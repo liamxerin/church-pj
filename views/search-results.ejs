@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .page{
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        thead {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        thead th {
+            padding: 10px;
+            text-align: left;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody td {
+            padding: 10px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            color: #343a40;
+            margin: 0 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+        }
+
+        .pagination a.active {
+            background-color: #343a40;
+            color: white;
+            border: 1px solid #343a40;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        table a{
+            text-decoration: none;
+            color: #343a40;
+        }
+        .action{
+            display: flex;
+            gap: 10px;
+        }
+  
+    </style>
+</head>
+<body>
+    <%- include('./partials/navbar') %>
+    <div class="page">
+
+   
+    <h1>All Members</h1>
+
+        <table>
+            <thead>
+                <tr>
+                 
+                    <th>အိမ်ထောင်ဦးစီးအမည်</th>
+                    <th>မိသားစုဝင်ဦးရေ</th>
+                    <th>နေရပ်လိပ်စာ</th>
+                    <th>ကြည့်ရန်</th>
+                    <th>action</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+               
+                <% brothers.forEach(brother => { %>
+                    
+                           
+                    <tr>
+                       
+                        <td><%= brother.name %></td>
+                        <td><%= brother.members.length %> ဦး</td>
+                        <td><%= brother.address %></td>
+                        <td><a href="/people_details/<%= brother.id %>"><i class="fa-solid fa-eye"></i></a></td>
+                        <td><div class="action"><a href="/update/<%= brother.id %>"><i class="fa-regular fa-pen-to-square"></i></a>    
+                            <form action="/api/brothers/home/<%= brother.id %>?_method=DELETE" method="POST" onsubmit="confirmDelete(event)">
+                                <!-- Use a hidden input field to store the ID -->
+                                <input type="hidden" name="id" value="<%= brother.id %>">
+                                <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form></div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        
+</div>
+</body>
+<script>
+    function confirmDelete(event) {
+        if (!confirm('Are you sure to delete this List?')) {
+            event.preventDefault();
+        }
+    }
+</script>
+</html>

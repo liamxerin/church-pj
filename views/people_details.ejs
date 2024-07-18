@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brother Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .member-list {
+            text-align: left;
+        }
+
+        .member-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .member-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/navbar') %>
+    <div class="container">
+        <div class="card">
+            <% if (brother.family_image) { %>
+                <img src="/uploads/<%= brother.family_image %>" alt="<%= brother.name %> Image">
+            <% } else { %>
+                <img src="/uploads/dafault.jpg" alt="<%= brother.name %> Image">
+            <% } %>
+            <h2><%= brother.name %> </h2> 
+            <p><strong>မိသားစုဝင်ဦးရေ<%= brother.members.length + 1%> ဦး</strong</p>
+            <p><strong>ဆေးကြောခြင်းအမည်:</strong> <%= brother.ch_name %></p>
+            <p><strong>မွေးသက္ကရာဇ်:</strong> <%= brother.birthdate ? new Date(brother.birthdate).toDateString() : 'N/A' %></p>
+            <p><strong>လူမျိုး:</strong> <%= brother.ethnicity %></p>
+            <p><strong>ဦးစီးနှင့်တော်စပ်ပုံ:</strong> <%= brother.res_lead %></p>
+            <p><strong>ဆေးကြောခြင်းအမည်:</strong> <%= brother.baptism %></p>
+            <p><strong>ပထမကိုယ်တော်မြတ်:</strong> <%= brother.first_com %></p>
+            <p><strong>ခရစ္စမားအားပေးခြင်း:</strong> <%= brother.second_com %></p>
+            <!-- <p><strong>Gender:</strong> <%= brother.gender %></p> -->
+            <p><strong>လက်ထပ်ထိန်းမြားခြင်း:</strong> <%= brother.marriage %></p>
+            <p><strong>နေရပ်လိပ်စာ:</strong> <%= brother.address %></p><br>
+            <strong>-------------------------------------------------------</strong> 
+            <% if (brother.members.length > 0) { %>
+                <div class="member-list">
+                    <h3>Members:</h3>
+                    <ul>
+                        <% brother.members.forEach(member => { %>
+                            <li>
+                                <strong>အမည်:</strong> <%= member.name %><br>
+                                <strong>ဆေးကြောခြင်းအမည်:</strong> <%= member.ch_name %><br>
+                                <strong>မွေးသက္ကရာဇ်:</strong> <%= member.birthdate ? new Date(member.birthdate).toDateString() : 'N/A' %><br>
+                                <strong>လူမျိုး:</strong> <%= member.ethnicity %><br>
+                                <strong>ဦးစီးနှင့်တော်စပ်ပုံ:</strong> <%= member.res_lead %><br>
+                                <strong>ဆေးကြောခြင်း:</strong> <%= member.baptism %><br>
+                                <strong>ပထမကိုယ်တော်မြတ်</strong>:</strong> <%= member.first_com %><br>
+                                <strong>ခရစ္စမားအားပေးခြင်း:</strong> <%= member.second_com %><br>
+                                <!-- <strong>Gender:</strong> <%= member.gender %><br> -->
+                                <strong>လက်ထပ်ထိန်းမြားခြင်း:</strong> <%= member.marriage %><br>
+                                <strong>နေရပ်လိပ်စာ:</strong> <%= member.address %><br>
+                                <strong>-------------------------------------------------------</strong> <br>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } else { %>
+                <p>No members for <%= brother.name %>.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

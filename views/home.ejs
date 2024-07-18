@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Brother</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            /* padding: 20px; */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+            margin-top: 70px;
+        }
+
+        form {
+            background-color: #fff;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px #4CAF50;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        .leader{
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .member {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .member label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* .member input, */
+        .member textarea {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .member input[type="text"]:focus,
+        .member input[type="date"]:focus,
+        .member textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px #4CAF50;
+        }
+
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            /* margin-bottom: 10px; */
+            margin-top: 50px;
+            border-radius: 4px;
+        }
+        .success-message button{
+            width: 30px;
+            margin-top: -2px;
+        }
+     .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.checkbox-group label {
+    margin-right: 10px;
+}
+
+.checkbox-group .check-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 5px;
+}
+     
+        @media screen and (max-width: 767px) {
+            h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1em;
+            margin-bottom: 20px;
+            /* margin-top: 90px; */
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 12px;
+        }
+        .member label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 12px;
+        }
+        .container{
+            margin-top: 50px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 10px;
+            
+        }
+        .button{
+            display: row;
+        }
+        .remove{
+            margin-top: -10px;
+           display: flex;
+           justify-content: center;
+        }
+        .remove button{
+            width: 50px;
+        }
+
+        }
+     
+    </style>
+      <script>
+        function updateOutput(value) {
+            document.getElementById('output').textContent = value;
+        }
+    </script>
+</head>
+<body>
+
+    <%- include('./partials/user_navbar') %>
+    <% 
+   
+    if (message.successMessage ) { %>
+       <div class="success-message" id="message">
+         
+           <p>  <%= message.successMessage %> </p>
+           <button onclick="removeSuccess()"><i class="fa-solid fa-x"></i></button>
+       </div>
+   <% } %>
+ 
+ <div class="container">
+  
+ 
+   <h1>Mae Sot Catholic Community</h1>
+   
+   <form action="/api/brothers/home/add_people" method="POST" enctype="multipart/form-data">
+    <div class="leader">
+       <label for="name">အိမ်ထောင်ဦးစီးအမည်:</label>
+       <input type="text" id="name" name="name" required>
+       
+       <label for="ch_name">ဆေးကြောခြင်းအမည်:</label>
+       <input type="text" id="ch_name" name="ch_name" required>
+       <input type="hidden" name="age" value="">
+       
+       <label for="birthdate">Birthdate:</label>
+       <input type="date" id="birthdate" name="birthdate"   required  >
+       
+       <label for="ethnicity">လူမျိုး:</label>
+       <input type="text" id="ethnicity" name="ethnicity" required>
+       
+       <label for="res_lead">ဦးစီးနှင့်တော်စပ်ပုံ:</label>
+       <input type="text" id="res_lead" name="res_lead" required>
+
+       <div class="checkbox-group">
+           <label for="baptism">ဆေးကြောခြင်း:</label>
+          <div class="check-item">
+            <input type="checkbox" id="baptism_yes" name="baptism" value="ရှိ" >
+            <label for="baptism_yes"> ရှိ</label>
+            <input type="checkbox" id="baptism_no" name="baptism" value="မရှိ" >
+            <label for="baptism_no"> မရှိ</label>
+          </div>
+       </div>
+
+       <div class="checkbox-group">
+           <label for="first_com">ပထမကိုယ်တော်မြတ်:</label>
+           <div class="check-item">
+           <input type="checkbox" id="first_com_yes" name="first_com" value="ရှိ" >
+           <label for="first_com_yes"> ရှိ</label>
+           <input type="checkbox" id="first_com_no" name="first_com" value="မရှိ" >
+           <label for="first_com_no"> မရှိ</label>
+        </div>
+       </div>
+
+       <div class="checkbox-group">
+           <label for="second_com">ခရစ္စမားအားပေးခြင်း:</label>
+           <div class="check-item">
+           <input type="checkbox" id="second_com_yes" name="second_com" value="ရှိ" >
+           <label for="second_com_yes"> ရှိ</label>
+           <input type="checkbox" id="second_com_no" name="second_com" value="မရှိ" >
+           <label for="second_com_no"> မရှိ</label>
+       </div>
+          
+       </div>
+       <div class="checkbox-group"> 
+        <label for="gender"> Gender</label>
+        <div class="check-item">
+            <input type="checkbox" id="gender" name="gender" value="အမျိုးသား" >
+        <label for="gender"> Male</label>
+        <input type="checkbox" id="gender" name="gender" value="အမျိုးသမီး" >
+        <label for="gender"> Female</label>
+        </div>
+        
+        
+    </div>
+      
+       <label for="marriage">လက်ထပ်ထိန်းမြားခြင်း:</label>
+       <input type="text" id="marriage" name="marriage" required>
+       
+       <label for="address">နေရပ်လိပ်စာ/ဖုန်းနံပတ်:</label>
+       <textarea id="address" name="address" rows="4" cols="40" required></textarea>
+       
+       <input type="file" name="family_image" accept="image/*" >
+    </div>
+       <!-- Members array -->
+       <h2>Members</h2>
+       <div id="members">
+           
+        
+       </div>
+       
+      <div class="button">
+        <button type="button" onclick="addMember()">မိသာစုဝင်များကိုထည့်သွင်းပါ</button>
+       
+        <button type="submit">Submit (တင်သွင်းပါ)</button>
+      </div>
+   </form>
+ </div>
+
+    <script>
+        function removeTag(){
+            const list = document.getElementById("members");
+         list.removeChild(list.lastElementChild);
+        }
+        function removeSuccess() {
+    var element = document.getElementById("message"); // Corrected function
+    if (element) {
+        element.remove();
+    }
+}
+        let memberId = 1;
+
+        function addMember() {
+            memberId++;
+            const div = document.createElement('div');
+            div.classList.add('member');
+            div.innerHTML = `
+            <div class = "remove">   <button type="button" onclick="removeTag()"><i class="fa-solid fa-x"></i></button></div>
+                <label for="member_name_${memberId}">အမည်:</label>
+                <input type="text" id="member_name_${memberId}" name="members[${memberId}][name]" required>
+                
+                <label for="member_ch_name_${memberId}">ဆေးကြောခြင်းအမည်:</label>
+                <input type="text" id="member_ch_name_${memberId}" name="members[${memberId}][ch_name]" required>
+                
+                <label for="member_birthdate_${memberId}">မွေးသက္ကရာဇ်:</label>
+                <input type="date" id="member_birthdate_${memberId}" name="members[${memberId}][birthdate]" required>
+                
+                <label for="member_ethnicity_${memberId}">လူမျိုး:</label>
+                <input type="text" id="member_ethnicity_${memberId}" name="members[${memberId}][ethnicity]" required>
+                
+                <label for="member_res_lead_${memberId}">ဦးစီးနှင့်တော်စပ်ပုံ:</label>
+                <input type="text" id="member_res_lead_${memberId}" name="members[${memberId}][res_lead]" required>
+                
+                <div class="checkbox-group">
+                       <label for="member_baptism_${memberId}">ဆေးကြောခြင်း:</label>
+                     <div class="check-item"> 
+                    <input type="checkbox" id="member_baptism_yes_${memberId}" name="members[${memberId}][baptism]" value="ရှိ" >
+                    <label for="member_baptism_yes_${memberId}"> ရှိ</label>
+                    <input type="checkbox" id="member_baptism_no_${memberId}" name="members[${memberId}][baptism]" value="မရှိ" >
+                    <label for="member_baptism_no_${memberId}"> မရှိ</label>
+                        </div>
+                 
+                   
+                </div>
+                
+                <div class="checkbox-group">
+                    <label for="member_first_com_${memberId}">ပထမကိုယ်တော်မြတ်:</label>
+                     <div class="check-item"> 
+                          <input type="checkbox" id="member_first_com_yes_${memberId}" name="members[${memberId}][first_com]" value="ရှိ" >
+                    <label for="member_first_com_yes_${memberId}"> ရှိ</label>
+                    <input type="checkbox" id="member_first_com_no_${memberId}" name="members[${memberId}][first_com]" value="မရှိ" >
+                    <label for="member_first_com_no_${memberId}"> မရှိ</label>
+                        </div>
+                  
+                </div>
+                
+                
+                <div class="checkbox-group">
+                    <label for="member_second_com_${memberId}">ခရစ္စမားအားပေးခြင်း:</label>
+                      <div class="check-item"> 
+                    <input type="checkbox" id="member_second_com_yes_${memberId}" name="members[${memberId}][second_com]" value="ရှိ" >
+                    <label for="member_second_com_yes_${memberId}"> ရှိ</label>
+                    <input type="checkbox" id="member_second_com_no_${memberId}" name="members[${memberId}][second_com]" value="မရှိ" >
+                    <label for="member_second_com_no_${memberId}"> မရှိ</label>
+                    </div>
+                </div>
+                     <div class="checkbox-group"> 
+        <label for="gender"> Gender</label>
+          <div class="check-item"> 
+        <input type="checkbox" id="gender" name="members[${memberId}][gender]" value="အမျိုးသား" >
+        <label for="gender"> Male</label>
+        <input type="checkbox" id="gender" name="members[${memberId}][gender]" value="အမျိုးသမီး" >
+        <label for="gender"> Female</label>
+        </div>
+        
+    </div>
+                
+                <label for="member_marriage_${memberId}">လက်ထပ်ထိန်းမြားခြင်း:</label>
+                <input type="text" id="member_marriage_${memberId}" name="members[${memberId}][marriage]" required>
+                
+                <label for="member_address_${memberId}">နေရပ်လိပ်စာ/ဖုန်းနံပတ်:</label>
+                <textarea id="member_address_${memberId}" name="members[${memberId}][address]" rows="4" cols="40" required></textarea>
+            `;
+            document.getElementById('members').appendChild(div);
+        }
+    </script>
+</body>
+</html>

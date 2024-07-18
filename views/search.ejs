@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        /* styles.css */
+
+/* Container styles */
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            /* padding: 20px; */
+        }
+.container {
+    max-width: 600px; /* Adjust max-width as needed */
+    margin: 0 auto; /* Center align the container */
+    padding: 20px;
+    margin-top: 50px;
+}
+
+
+/* Search form styles */
+.search {
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.search label {
+    display: block; /* Ensure labels are displayed on new lines */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.search input[type="text"],
+.search button[type="submit"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px;
+}
+
+.search button[type="submit"] {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.search button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+    </style>
+</head>
+<body>
+    <%- include('./partials/navbar') %>
+    <div class="container">
+        <div class="search">
+            <!-- views/brothers/search-form.ejs -->
+<form action="search-results" method="GET">
+    <label for="name">ရှာဖွေရန်</label>
+    <input type="text" id="name" name="name" placeholder="အိမ်ထောင်ဦးစီးနာမည်ရိုက်ပါ">
+    <button type="submit">Search</button>
+</form>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts</title>
+    <link rel="stylesheet" href="/path/to/your/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .chart-container {
+            width: 50%;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        .chart-container p {
+            margin: 10px;
+        }
+
+        #barChart {
+            width: 100% !important;
+            height: auto !important;
+            padding: 10px;
+        }
+
+        #pieChart, #pieChart1 {
+            width: 50% !important;
+            height: auto !important;
+            padding: 10px;
+        }
+
+        @media screen and (max-width: 767px) {
+            .chart-container {
+                width: 100%;
+            }
+            #pieChart, #pieChart1 {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/navbar') %>
+
+    <div class="container">
+        <div class="chart-container">
+            <p>လူမျိုး</p>
+            <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <p>Age status</p>
+            <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <p>ကျား/မ</p>
+            <canvas id="pieChart1"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Get the data from the server-side
+        const ethnicityLabels = <%- JSON.stringify(ethnicityLabels) %>;
+        const ethnicityData = <%- JSON.stringify(ethnicityData) %>;
+
+        const genderData = <%- JSON.stringify(genderData) %>;
+        const genderLabels = <%- JSON.stringify(genderLabels) %>;
+
+        const statusData = <%- JSON.stringify(statusData) %>;
+        const statusLabels = <%- JSON.stringify(statusLabels) %>;
+
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ethnicityLabels,
+                datasets: [{
+                    label: 'လူမျိုး',
+                    data: ethnicityData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Donut Chart for Age Status
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: statusLabels,
+                datasets: [{
+                    label: 'အရွယ်',
+                    data: statusData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                 
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(2) + "%";
+                            return percentage;
+                        },
+                        color: '#000',
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+        // Donut Chart for Gender
+        const pieCtx1 = document.getElementById('pieChart1').getContext('2d');
+        const pieChart1 = new Chart(pieCtx1, {
+            type: 'pie',
+            data: {
+                labels: genderLabels,
+                datasets: [{
+                    label: 'ကျား/မ',
+                    data: genderData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    // borderColor: [
+                    //     'rgba(255, 99, 132, 1)',
+                    //     'rgba(54, 162, 235, 1)',
+                    //     'rgba(255, 206, 86, 1)',
+                    //     'rgba(75, 192, 192, 1)',
+                    //     'rgba(153, 102, 255, 1)',
+                    //     'rgba(255, 159, 64, 1)'
+                    // ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            let percentage = (value * 100 / sum).toFixed(2) + "%";
+                            return percentage;
+                        },
+                        color: '#000',
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    </script>
+</body>
+</html>

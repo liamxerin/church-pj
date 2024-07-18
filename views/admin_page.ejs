@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            /* box-sizing: border-box; */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            /* padding: 20px; */
+        }
+
+        .container {
+            margin-top: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+               padding: 20px;
+        }
+
+        .data {
+            flex: 1 1 calc(50% - 20px);
+            min-height: 50%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* Added for positioning the icon */
+        }
+
+        .data h4 {
+            margin-bottom: 10px;
+            color: #007bff; /* Blue color for headings */
+        }
+
+        .data p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .data ul li{
+            list-style: none;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .scrollable{
+            max-height: 60vh; /* Adjust height as needed */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar inclusion -->
+    <%- include('./partials/navbar') %>
+ 
+    <div class="container">
+        <!-- Section 1 -->
+        <div class="data">
+            <div class="field">
+                <h4>အိမ်ထောင်စု</h4>
+                <p><%= brothers.length %> စု</p>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="data">
+            <div class="field">
+                <h4>အားလုံး</h4>
+                <p><%= totalMembers + brothers.length %> ယောက်</p>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="data">
+            <i class="fa-solid fa-link"></i>
+            <div class="field">
+                <h4>ဆေးကြောခြင်းမခံရသေးသူ</h4>
+                <% 
+                let memberWithNoChCount = 0; 
+                no_ch.forEach(brother => { 
+                    memberWithNoChCount += brother.members.length; 
+                }); 
+                %>
+                <p><%= memberWithNoChCount + brotherWithNoCh.length %> ယောက်</p>
+                <!-- Open Modal button for Section 3 -->
+                <i id="openModalBtn3" class="fa-solid fa-eye"></i>
+                <!-- Modal for Section 3 -->
+                <div id="myModal3" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>ဆေးကြောခြင်းမခံရသေးသူ</h2>
+                 
+                       <div class="scrollable">
+                        <ul>
+                            <% brotherWithNoCh.forEach(item => { %>
+                                <li><%= item.name %></li>
+                            <% }); %>
+                        </ul>
+                  
+                        <ul>
+                            <% no_ch.forEach(brother => { %>
+                                <% brother.members.forEach(member => { %>
+                                    <li><%= member.name %></li>
+                                    
+                                <% }); %>
+                            <% }); %>
+                        </ul>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="data">
+            <i class="fa-solid fa-link"></i>
+            <div class="field">
+                <h4>ပထမကိုယ်တော်မြတ်မရသေးသူ</h4>
+                <% 
+                let memberWithNoFirstCount = 0; 
+                no_first_com.forEach(brother => { 
+                    memberWithNoFirstCount += brother.members.length; 
+                }); 
+                %>
+                <p><%= memberWithNoFirstCount + brotherWithNoFirstCom.length   %> ယောက်</p>
+                <!-- Open Modal button for Section 4 -->
+                <i id="openModalBtn4" class="fa-solid fa-eye"></i>
+                <!-- Modal for Section 4 -->
+                <div id="myModal4" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>ပထမကိုယ်တော်မြတ်မရသေးသူ</h2>
+                        <div class="scrollable">
+                            <ul>
+                                <% brotherWithNoFirstCom.forEach(item => { %>
+                                    <li><%= item.name %></li>
+                                <% }); %>
+                            </ul>
+                        <ul>
+                      <% no_first_com.forEach(brother => { %>
+                         <% brother.members.forEach(member => { %>
+                       
+                           <li><%= member.name %></li>
+                           <% }); %>
+                         <% }); %>
+                       </ul>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="data">
+            <i class="fa-solid fa-link"></i>
+            <div class="field">
+                <h4>ခရစ္စမားအားပေးခြင်းမရသေးသူ</h4>
+                <% 
+                let memberCount = 0; 
+                no_sec_com.forEach(brother => { 
+                  memberCount += brother.members.length; 
+                }); 
+                %>
+                <p><%= brotherWithNoSecondCom.length + memberCount  %> ယောက်</p>
+                
+                <i id="openModalBtn5" class="fa-solid fa-eye"></i>
+                <!-- Modal for Section 4 -->
+                <div id="myModal5" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>ခရစ္စမားအားပေးခြင်းမရသေးသူ</h2>
+                       
+                        
+                        
+                        <div class="scrollable">
+                        <ul>
+                            <% brotherWithNoSecondCom.forEach(item => { %>
+                                <li><%= item.name %></li>
+                            <% }); %>
+                        </ul>
+                      
+                        <ul>
+                      <% no_sec_com.forEach(brother => { %>
+                         <% brother.members.forEach(member => { %>
+                           
+                           <li><%= member.name %></li>
+                           <% }); %>
+                         <% }); %>
+                       </ul> 
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle opening and closing modals
+        function setupModal(btnId, modalId) {
+            var modal = document.getElementById(modalId);
+            var btn = document.getElementById(btnId);
+            var span = modal.getElementsByClassName("close")[0];
+
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+        // Initialize modals for each section
+        setupModal("openModalBtn3", "myModal3");
+        setupModal("openModalBtn4", "myModal4");
+        setupModal("openModalBtn5", "myModal5");
+        
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar */
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            background-color: #555;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #333;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+            padding: 10px;
+            z-index: 999;
+        }
+
+        #sidebar.open {
+            display: block;
+            margin-top: -11px;
+           
+        }
+        #sidebar .nav-links{
+            display: block;
+            list-style-type: none;
+            
+        }
+       
+        .open .nav-links {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .open .nav-links li {
+            margin: 0 -10px 15px;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+            font-size: 20px;
+        }
+
+        .open .nav-links li a:hover {
+            background-color: #555;
+           
+        }
+        .navbar-container .bar{
+            display: none;
+        }
+        /* Responsive Navigation Menu */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .navbar-container .bar {
+                display: block;
+                color: white;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo"><i class="fa-solid fa-church"></i></a>
+            <button class="bar" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li><a href="/admin_page" class="nav-link">Home</a></li>
+                <li><a href="/allmembers" class="nav-link">List</a></li>
+                <li><a href="/search" class="nav-link">Search</a></li>
+                <li><a href="/analytis" class="nav-link">Analytics</a></li>
+            </ul>
+        </div>
+        <div id="sidebar">
+            <ul class="nav-links">
+                <li><a href="/admin_page" class="nav-link">Home</a></li>
+                <li><a href="/allmembers" class="nav-link">List</a></li>
+                <li><a href="/search" class="nav-link">Search</a></li>
+                <li><a href="/analytis" class="nav-link">Analytics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Your other content here -->
+
+    <script>
+        function openSidebar() {
+            let sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle("open");
+        }
+    </script>
+</body>
+</html>
