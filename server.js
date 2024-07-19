@@ -52,7 +52,9 @@ app.use('/api/brothers/home', BrotherRoutes);
 app.get('/home', (req, res) => {
   res.render('home', { message: req.flash() });
 });
-
+app.get('/about_page', (req, res) => {
+  res.render('about_page');
+});
 // Uncomment and adjust if you have admin page
 // app.get('/admin_page', (req, res) => {
 //   res.render('admin_page', { message: req.flash() });

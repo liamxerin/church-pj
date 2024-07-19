@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+  
+</head>
+<style>
+ /* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+   
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    /* background-color: #fff; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.about-me, .app-purpose {
+    margin-bottom: 30px;
+}
+
+</style>
+<body>
+  <%- include('./partials/user_navbar') %>
+  <div class="container">
+    <section class="about-me">
+        <h1>About Me</h1>
+        <p>I am Nyo Naing Loon, a passionate developer with a keen interest in creating practical and user-friendly applications. My background in web and mobile app development allows me to bring innovative solutions to life, aiming to improve everyday tasks through technology.</p>
+    </section>
+    <section class="app-purpose">
+        <h1>Purpose of the App</h1>
+        <p>This app is designed to facilitate the process of filling out a household list form, ensuring that the information is easily accessible and well-organized for priests. By digitizing this process, the app aims to provide a seamless and efficient way for users to manage and submit household information, ultimately enhancing the administrative workflow and reducing paperwork.</p>
+    </section>
+    <section class="get-in-touch">
+        <h1>Contact</h1>
+        <i class="fa-solid fa-phone"></i>
+        +66 09 52219474<br>
+        <i class="fa-solid fa-envelope"></i>
+        <a href="mailto:brownloon3@gmail.com">brownloon3@gmail.com</a><br>
+    </section>
+</div>
+</body>
+</html>
