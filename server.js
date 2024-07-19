@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const flash = require('connect-flash');
 const session = require('express-session');
 const adminRoutes = require('./routes/adminroute');
-
+const RedisStore = require("connect-redis").default
 const RedisStore = require('connect-redis')(session);
 const redisClient = require('redis').createClient();
 
