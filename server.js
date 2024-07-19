@@ -6,18 +6,23 @@ const mongoose = require('mongoose')
 const flash = require('connect-flash');
 const session = require('express-session');
 const adminRoutes = require('./routes/adminroute');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const redisClient = require('redis').createClient();
 
+app.use(session({
+  store: new RedisStore({ client: redisClient }),
+  secret: 'myKey0203910293-13-10-0-210',
+  resave: false,
+  saveUninitialized: false,
+}));
 const app = express()
 const multer = require('multer');
 const path = require('path');
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
-app.use(session({
-    secret: 'your-secret-key',
-    resave: true,
-    saveUninitialized: true
-}));
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/'); // Directory where uploaded files will be stored

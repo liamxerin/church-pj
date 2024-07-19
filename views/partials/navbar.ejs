@@ -107,18 +107,41 @@
         }
         /* Responsive Navigation Menu */
         @media screen and (max-width: 768px) {
+            .navbar{
+                background-color: transparent;
+            }
             .nav-links {
                 display: none;
+                
             }
 
             .navbar-container .bar {
                 display: block;
-                color: white;
+                color: rgb(0, 0, 0);
                 background: none;
                 border: none;
                 font-size: 1.5rem;
                 cursor: pointer;
             }
+            
+        .logo {
+            font-size: 1.5rem;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+        #sidebar {
+            display: none;
+            position: fixed;
+            top: 100px;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #333;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+            padding: 10px;
+            z-index: 999;
+        }
+
             
         }
     </style>
