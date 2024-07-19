@@ -61,7 +61,7 @@ app.use(adminRoutes);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log("Database-connected = 1, Listening port = 1");
+      console.log("Database-connected = 1, Listening port = 1",process.env.MONGO_URI);
     });
   })
   .catch((error) => {
