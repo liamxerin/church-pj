@@ -8,14 +8,17 @@ const session = require('express-session');
 const adminRoutes = require('./routes/adminroute');
 const multer = require('multer');
 const path = require('path');
-
+const MongoStore = require('connect-mongo');
 const app = express(); // Define app before using it
 
 // Set up session middleware (using default MemoryStore)
 app.use(session({
-  secret: 'myKey0203910293-13-10-0-210',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI
+  })
 }));
 
 app.set('view engine', 'ejs');
